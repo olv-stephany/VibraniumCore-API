@@ -13,3 +13,142 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Usuario {
+  id                 Int       @id @default(autoincrement())
+  nome_usuario       String
+  email              String    @unique
+  senha              String
+  cpf                String    @unique
+  data_de_nascimento DateTime?
+  tipo_investidor_id Int
+
+  //FK
+  tipo_de_investidor TipoInvestidor @relation(fields: [tipo_investidor_id], references: [id])
+
+  //Relacionamentos
+  movimentacoes Movimentacao[]
+  Carteira      Carteira[]
+
+  @@map("usuario")
+}
+
+model Investimento {
+  id                         Int          @id @default(autoincrement())
+  nome_investimento          String       @unique
+  categoria_investimentos_id Int
+  riscos_investimentos_id    Int
+  liquidez                   LiquidezEnum
+  valor_unitario             Decimal
+  indice_rentabilidade       Decimal
+  descricao                  String?
+
+  //FK
+  categoria CategoriaInvestimentos @relation(fields: [categoria_investimentos_id], references: [id])
+  risco     RiscosInvestimentos    @relation(fields: [riscos_investimentos_id], references: [id])
+
+  // Relacionamentos
+  movimentacoes Movimentacao[]
+  Carteira      Carteira[]
+
+  @@map("investimento")
+}
+
+enum LiquidezEnum {
+  BAIXA
+  MEDIA
+  ALTA
+}
+
+model Movimentacao {
+  id                     Int                 @id @default(autoincrement())
+  usuario_id             Int
+  investimento_id        Int
+  tipo_transacao         TipoTransacaoEnum
+  quantidade             Int
+  valor_unitario_momento Decimal
+  valor_total            Decimal
+  data_transacao         DateTime
+  status                 StatusTransacaoEnum
+
+  //FK
+  usuario      Usuario      @relation(fields: [usuario_id], references: [id])
+  investimento Investimento @relation(fields: [investimento_id], references: [id])
+
+  @@map("movimentacao")
+}
+
+enum TipoTransacaoEnum {
+  COMPRA
+  VENDA
+}
+
+enum StatusTransacaoEnum {
+  PENDENTE
+  CONCLUIDA
+  CANCELADA
+}
+
+model TipoInvestidor {
+  id        Int          @id @default(autoincrement())
+  nome_tipo NomeTipoEnum
+  descricao String?
+
+  //Relacionamentos
+  usuarios Usuario[]
+
+  @@map("tipo_investidor")
+}
+
+enum NomeTipoEnum {
+  CAUTELOSO
+  MODERADO
+  ARROJADO
+}
+
+model CategoriaInvestimentos {
+  id             Int     @id @default(autoincrement())
+  nome_categoria String  @unique
+  descricao      String?
+
+  //Relacionamentos
+  investimentos Investimento[]
+
+  @@map("categoria_investimentos")
+}
+
+model RiscosInvestimentos {
+  id                 Int           @id @default(autoincrement())
+  nome_nivel         NomeNivelEnum
+  descricao          String?
+  recomendacao_geral String
+
+  //Relacionamentos
+  investimentos Investimento[]
+
+  @@map("riscos_investimentos")
+}
+
+enum NomeNivelEnum {
+  BAIXO
+  MODERADO
+  ALTO
+}
+
+model Carteira {
+  id                 Int      @id @default(autoincrement())
+  usuario_id         Int
+  investimento_id    Int
+  quantidade_total   Int
+  valor_total        Decimal
+  ultima_atualizacao DateTime @updatedAt
+
+  // FK
+  usuario      Usuario      @relation(fields: [usuario_id], references: [id])
+  investimento Investimento @relation(fields: [investimento_id], references: [id])
+
+  @@unique([usuario_id, investimento_id])
+  @@map("carteira")
+}
+//quando o usuario comprar ou vender algo, essa model será atualizada.
+//coluna futuras: rentabilidade, preco_medio...
