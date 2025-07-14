@@ -41,7 +41,7 @@ model Investimento {
   liquidez                   LiquidezEnum
   valor_unitario             Decimal
   indice_rentabilidade       Decimal
-  descricao                  String?
+  descricao                  String? 
 
   //FK
   categoria CategoriaInvestimentos @relation(fields: [categoria_investimentos_id], references: [id])
