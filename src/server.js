@@ -1,11 +1,7 @@
-const express = require('express')
-const app = express()
-const port = 3000
+import app from "./app.js"; //agora vai em
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-  console.log(`Servidor iniciado com sucesso!`)
-})
+  console.log(`Servidor rodando em http://localhost:${port} 🚀`);
+});
