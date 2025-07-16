@@ -1,16 +1,17 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js"
+import investimentRoutes from "./routes/investimentRoutes.js"
 
+dotenv.config();
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.get('/teste', (req, res) => {
-    console.log('🌟 Requisição recebida na rota /teste');
-    res.status(200).send('Rota de teste funcionando!');
-});
 
 app.use("/user", userRoutes);
+app.use("/investment", investimentRoutes);
+
 export default app;
