@@ -5,11 +5,20 @@ export const createUser = async (info) => {
 };
 
 export const listUser = async () => {
-    return await prisma.usuario.findMany();
+    return await prisma.usuario.findMany({
+        include: {
+            tipoInvestidor: true
+        }
+    });
 };
 
 export const searchUserById = async (id) => {
-    return await prisma.usuario.findUnique({ where: { id: Number(id) } });
+    return await prisma.usuario.findUnique({
+        where: { id: Number(id) },
+        include: {
+            tipoInvestidor: true
+        }
+    });
 };
 
 export const updateUser = async (id, info) => {
@@ -20,5 +29,7 @@ export const updateUser = async (id, info) => {
 };
 
 export const deleteUser = async (id) => {
-    return await prisma.usuario.delete({ where: { id: Number(id) } });
+    return await prisma.usuario.delete({
+        where: { id: Number(id) }
+    });
 };
