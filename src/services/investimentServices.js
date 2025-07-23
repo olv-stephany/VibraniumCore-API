@@ -10,10 +10,10 @@ export const createInvestment = async (code, extras) => {
       nome_investimento: data.nome_investimento,
       valor_unitario: data.preco_atual,
       indice_rentabilidade: data.rentabilidade,
-      categoria_investimentos_id: extras.categoriaId,
-      riscos_investimentos_id: extras.riscoId,
-      liquidez: extras.liquidez,
-      descricao: extras.descricao ?? null
+      categoria_investimentos_id: extras.categoriaId, //
+      riscos_investimentos_id: extras.riscoId, //
+      liquidez: extras.liquidez, //
+      descricao: extras.descricao ?? null //
     }
   });
 };

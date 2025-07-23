@@ -1,7 +1,7 @@
 import express from 'express'
 import * as investimentController from '../controllers/investimentController.js'
 
-const router =express.Router();
+const router = express.Router();
 
 router.post('/', investimentController.create);
 router.get('/', investimentController.list);

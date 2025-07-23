@@ -3,14 +3,9 @@ import * as investimentService from '../services/investimentServices.js'
 //criação de novo investimento com dados da BRAPI + extras
 export const create = async (req, res) => {
     try {
-        const { code, categoriaId, riscoId, liquidez, descricao } = req.body;
+        const { code, ...extras} = req.body;
 
-        const investment = await investimentService.createInvestment(code, {
-            categoriaId,
-            riscoId,
-            liquidez,
-            descricao
-        });
+        const investment = await investimentService.createInvestment(code, extras); //test depois
 
         return res.status(201).json(investment)
     } catch (error) {
@@ -21,6 +16,7 @@ export const create = async (req, res) => {
 export const list = async (req, res) => {
     try {
         const investments = await investimentService.listInvestment();
+
         res.json(investments);
     } catch (error) {
         res.status(500).json({ error: `Erro ao listar investimentos: ${error.message}` });
@@ -57,7 +53,7 @@ export const deleteInvestment = async (req, res) => {
 
         res.status(204).end();
     } catch (error) {
-        res.status(500).json({ error: `Erro ao deletar investimento: ${error.massage}` });
+        res.status(500).json({ error: `Erro ao deletar investimento: ${error.message}` });
     }
 };
 
