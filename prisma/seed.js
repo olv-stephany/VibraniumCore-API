@@ -45,6 +45,26 @@ async function main() {
         skipDuplicates: true
     });
 
+    const updates = [
+        { nome_investimento: 'Petrobras', code: 'PETR4' },
+        { nome_investimento: 'Vale', code: 'VALE3' },
+        { nome_investimento: 'Itaú', code: 'ITUB3' }
+    ];
+
+    for (const { nome_investimento, code } of updates) {
+        const updated = await prisma.investimento.updateMany({
+            where: {
+                nome_investimento: {
+                    contains: nome_investimento,
+                    mode: 'insensitive' //correção de erro na requisição de get em wallet
+                }
+            }, 
+            data: { code }
+        });
+
+        //console.log(`Atualizado: ${updated.count} registro(s) para ${nome_investimento} => ${code}`);
+    }
+
     console.log('Seed executado com sucesso.')
 }
 

@@ -1,3 +1,4 @@
+//para a consulta de um unico codigo
 import axios from 'axios';
 
 export const fetchInvestmentData = async (code) => {

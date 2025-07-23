@@ -34,13 +34,14 @@ model Usuario {
 
 model Investimento {
   id                         Int          @id @default(autoincrement())
+  code                       String?       @unique
   nome_investimento          String       @unique
   categoria_investimentos_id Int
   riscos_investimentos_id    Int
   liquidez                   LiquidezEnum
   valor_unitario             Decimal
   indice_rentabilidade       Decimal
-  descricao                  String? 
+  descricao                  String?
 
   //FK
   categoria CategoriaInvestimentos @relation(fields: [categoria_investimentos_id], references: [id])
@@ -149,5 +150,6 @@ model Carteira {
   @@unique([usuario_id, investimento_id])
   @@map("carteira")
 }
+
 //quando o usuario comprar ou vender algo, essa model será atualizada.
 //coluna futuras: rentabilidade, preco_medio...
