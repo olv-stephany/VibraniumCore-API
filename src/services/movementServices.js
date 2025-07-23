@@ -4,6 +4,7 @@ import { fetchInvestmentData } from '../utils/brapiClient.js';
 export const createMovement = async (code, extras) => {
     //extras = dados do schema
     //code = dados da api
+    
     const data = await fetchInvestmentData(code); //BRAPI
 
     const investimento = await prisma.investimento.findFirst({
@@ -30,6 +31,7 @@ export const createMovement = async (code, extras) => {
             data_transacao: new Date(),
             status: extras.status
         },
+
         //para exibição do nome de usuario e de investimentos na requisição
         include: {
             usuario: {
@@ -87,7 +89,7 @@ export const searchMovementById = async (id) => {
 };
 
 //update de status da movimentação (Pendente, Concluida ou cancelada). não haverá delete das movimentaçoes
-export const updateMovementById = async (id) => {
+export const updateMovementById = async (id, NewStatus) => {
     const movimentacao = await prisma.movimentacao.findUnique({
         where: { id: Number(id) }
     })
