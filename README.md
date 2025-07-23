@@ -6,6 +6,6 @@ api de investimentos em desenvolvimento
 🟨 ETAPA 3 — Criar os CRUDs principais - Pendente
 -  CRUD usuarios ---> FEITO
 -  CRUD Investimentos ---> FEITO
--  CRUD MOVIMENTACAO
+-  CRUD MOVIMENTACAO ----> FEITO
 -  CRUD CARTEIRA
 🟦 ETAPA 4 — Funcionalidades extras e organização final
