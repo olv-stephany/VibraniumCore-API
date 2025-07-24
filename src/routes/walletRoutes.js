@@ -1,16 +1,11 @@
 import { Router } from 'express';
 import * as walletController from '../controllers/walletController.js';
-// import { autenticar } from '../middlewares/autenticacao.js'; // futura autenticação
+import { authToken } from '../middlewares/authMiddleware.js'; 
 
 const router = Router();
 
-// Adicionar ativo à carteira
-router.post('/add', /* autenticar, */ walletController.addActive);
-
-// Vender/remover ativo da carteira
-router.post('/sell', /* autenticar, */ walletController.sellActive);
-
-// Listar carteira atualizada
-router.get('/', /* autenticar, */ walletController.listNewWallet);
+router.get('/', authToken, walletController.listNewWallet);
+router.post('/add', authToken, walletController.addActive);
+router.post('/sell', authToken, walletController.sellActive); 
 
 export default router;

@@ -2,9 +2,12 @@ import * as movementServices from "../services/movementServices.js"
 
 export const create = async (req, res) => {
     try {
+        const usuarioId = req.usuario.id;
         const { code, ...extras } = req.body;
-        const movement = await movementServices.createMovement(code, extras);
-        return res.status(201).json(movement)
+
+        const movement = await movementServices.createMovement(usuarioId, code, extras);
+
+        return res.status(201).json(movement);
     } catch (error) {
         return res.status(500).json({ error: `Erro ao criar movimentação: ${error.message}` });
     }
@@ -12,7 +15,8 @@ export const create = async (req, res) => {
 
 export const list = async (req, res) => {
     try {
-        const movement = await movementServices.listMovements();
+        const usuarioId = req.usuario.id;
+        const movement = await movementServices.listMovements(usuarioId);
 
         res.json(movement);
     } catch (error) {
@@ -22,7 +26,8 @@ export const list = async (req, res) => {
 
 export const searchById = async (req, res) => {
     try {
-        const movement = await movementServices.searchMovementById(req.params.id);
+        const usuarioId = req.usuario.id;
+        const movement = await movementServices.searchMovementById(usuarioId, req.params.id);
 
         if (!movement) {
             return res.status(404).json({ error: `Movimentação não encontrado` });
@@ -36,7 +41,8 @@ export const searchById = async (req, res) => {
 
 export const update = async (req, res) => {
     try {
-        const movement = await movementServices.updateMovementById(req.params.id, req.body.status);
+        const usuarioId = req.usuario.id;
+        const movement = await movementServices.updateMovementById(usuarioId, req.params.id, req.body.status);
 
         res.json(movement);
     } catch (error) {

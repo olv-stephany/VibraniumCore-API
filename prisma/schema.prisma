@@ -18,12 +18,12 @@ model Usuario {
   nome_usuario       String
   email              String    @unique
   senha              String
-  cpf                String    @unique
+  cpf                String?    
   data_de_nascimento DateTime?
-  tipo_investidor_id Int
+  tipo_investidor_id Int?
 
   //FK
-  tipo_de_investidor TipoInvestidor @relation(fields: [tipo_investidor_id], references: [id])
+  tipo_de_investidor TipoInvestidor? @relation(fields: [tipo_investidor_id], references: [id])
 
   //Relacionamentos
   movimentacoes Movimentacao[]

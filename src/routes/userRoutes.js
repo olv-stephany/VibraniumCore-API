@@ -1,12 +1,13 @@
 import express from 'express';
 import * as userController from "../controllers/userController.js"
+import { authToken } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
-router.post('/', userController.create);
-router.get('/', userController.list);
-router.get('/:id', userController.searchById);
-router.put('/:id', userController.update);
-router.delete('/:id', userController.deleteUser);
+router.post('/', authToken, userController.create);
+router.get('/', authToken, userController.list);
+router.get('/:id', authToken, userController.searchById);
+router.put('/:id', authToken, userController.update);
+router.delete('/:id', authToken, userController.deleteUser);
 
 export default router;
