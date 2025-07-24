@@ -2,8 +2,7 @@ import * as walletServices from '../services/walletServices.js'
 
 export const addActive = async (req, res) => {
     try {
-        //const usuarioId = req.usuario.id; middleware
-        const usuarioId = 4;
+        const usuarioId = req.usuario.id;
 
         const { code, quantidade } = req.body;
 
@@ -20,8 +19,7 @@ export const addActive = async (req, res) => {
 
 export const sellActive = async (req, res) => {
     try {
-        //const usuarioId = req.usuario.id;
-        const usuarioId = 4;
+        const usuarioId = req.usuario.id;
         const { code, quantidade } = req.body;
 
         if (!code || !quantidade || quantidade <= 0) {
@@ -38,8 +36,7 @@ export const sellActive = async (req, res) => {
 
 export const listNewWallet = async (req, res) => {
     try {
-        //const usuarioId = req.usuario.id;
-        const usuarioId = 4;
+        const usuarioId = req.usuario.id;
         const wallet = await walletServices.listNewWallet(usuarioId);
         return res.status(200).json(wallet);
 

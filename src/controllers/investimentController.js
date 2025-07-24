@@ -3,9 +3,9 @@ import * as investimentService from '../services/investimentServices.js'
 //criação de novo investimento com dados da BRAPI + extras
 export const create = async (req, res) => {
     try {
-        const { code, ...extras} = req.body;
-
-        const investment = await investimentService.createInvestment(code, extras); //test depois
+        const usuarioId = req.usuario.id;
+        const { code, ...extras } = req.body;
+        const investment = await investimentService.createInvestment(usuarioId, code, extras);
 
         return res.status(201).json(investment)
     } catch (error) {
@@ -15,7 +15,8 @@ export const create = async (req, res) => {
 
 export const list = async (req, res) => {
     try {
-        const investments = await investimentService.listInvestment();
+        const usuarioId = req.usuario.id;
+        const investments = await investimentService.listInvestment(usuarioId);
 
         res.json(investments);
     } catch (error) {
@@ -25,13 +26,10 @@ export const list = async (req, res) => {
 
 export const searchById = async (req, res) => {
     try {
-        const investment = await investimentService.searchInvestmentById(req.params.id);
+        const usuarioId = req.usuario.id;
+        const investment = await investimentService.searchInvestmentById(usuarioId, req.params.id);
 
-        if (!investment) {
-            return res.status(404).json({ error: `Investimento não encontrado` });
-        } else {
-            res.json(investment)
-        }
+        res.json(investment)
     } catch (error) {
         res.status(500).json({ error: `Erro ao buscar investimentos: ${error.message}` });
     }
@@ -39,7 +37,8 @@ export const searchById = async (req, res) => {
 
 export const update = async (req, res) => {
     try {
-        const investiment = await investimentService.updateInvestment(req.params.id, req.body);
+        const usuarioId = req.usuario.id;
+        const investiment = await investimentService.updateInvestment(usuarioId, req.params.id, req.body);
 
         res.json(investiment);
     } catch (error) {
@@ -49,7 +48,8 @@ export const update = async (req, res) => {
 
 export const deleteInvestment = async (req, res) => {
     try {
-        await investimentService.deleteInvestment(req.params.id);
+        const usuarioId = req.usuario.id;
+        await investimentService.deleteInvestment(usuarioId, req.params.id);
 
         res.status(204).end();
     } catch (error) {
