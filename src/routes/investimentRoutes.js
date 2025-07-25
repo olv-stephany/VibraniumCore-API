@@ -4,7 +4,7 @@ import { authToken } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
-router.post('/register', authToken, investimentController.create);
+router.post('/', authToken, investimentController.create);
 router.get('/', authToken, investimentController.list);
 router.get('/:id', authToken, investimentController.searchById);
 router.put('/:id', authToken, investimentController.update);

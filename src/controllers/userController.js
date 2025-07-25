@@ -57,7 +57,7 @@ export const searchById = async (req, res) => {
 export const update = async (req, res) => {
     try {
         const usuarioId = req.usuario.id;
-        const user = await userServices.updateUser(usuarioId, req.params.id, req.body);
+        const user = await userServices.updateUser(usuarioId, req.body);
 
         res.json(user)
     }
