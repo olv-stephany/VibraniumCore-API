@@ -3,6 +3,7 @@ import prisma from '../prisma.js' //importando o prisma client
 import { fetchInvestmentData } from '../utils/brapiClient.js';
 
 export const createInvestment = async (code, extras) => {
+
   const data = await fetchInvestmentData(code);
 
   return await prisma.investimento.create({
@@ -10,10 +11,12 @@ export const createInvestment = async (code, extras) => {
       nome_investimento: data.nome_investimento,
       valor_unitario: data.preco_atual,
       indice_rentabilidade: data.rentabilidade,
-      categoria_investimentos_id: extras.categoriaId, //
-      riscos_investimentos_id: extras.riscoId, //
-      liquidez: extras.liquidez, //
-      descricao: extras.descricao ?? null //
+
+      code: extras.code,
+      categoria_investimentos_id: extras.categoriaId,
+      riscos_investimentos_id: extras.riscoId,
+      liquidez: extras.liquidez,
+      descricao: extras.descricao ?? null
     }
   });
 };
@@ -40,7 +43,17 @@ export const searchInvestmentById = async (id) => {
 export const updateInvestment = async (id, info) => {
   return await prisma.investimento.update({
     where: { id: Number(id) },
-    data: info
+    data: {
+      code: info.code,
+      liquidez: info.liquidez,
+      descricao: info.descricao ?? null,
+      categoria: {
+        connect: { id: Number(info.categoria) },
+      },
+      risco: {
+        connect: { id: Number(info.risco) },
+      }
+    }
   });
 };
 

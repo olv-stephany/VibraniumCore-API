@@ -5,7 +5,10 @@ export const create = async (req, res) => {
     try {
         const usuarioId = req.usuario.id;
         const { code, ...extras } = req.body;
-        const investment = await investimentService.createInvestment(usuarioId, code, extras);
+
+        console.log("Usuário autenticado ID:", usuarioId);
+        console.log("Corpo recebido:", req.body);
+        const investment = await investimentService.createInvestment(code, extras);
 
         return res.status(201).json(investment)
     } catch (error) {
@@ -16,7 +19,7 @@ export const create = async (req, res) => {
 export const list = async (req, res) => {
     try {
         const usuarioId = req.usuario.id;
-        const investments = await investimentService.listInvestment(usuarioId);
+        const investments = await investimentService.listInvestment();
 
         res.json(investments);
     } catch (error) {
@@ -27,7 +30,7 @@ export const list = async (req, res) => {
 export const searchById = async (req, res) => {
     try {
         const usuarioId = req.usuario.id;
-        const investment = await investimentService.searchInvestmentById(usuarioId, req.params.id);
+        const investment = await investimentService.searchInvestmentById(req.params.id);
 
         res.json(investment)
     } catch (error) {
@@ -38,18 +41,18 @@ export const searchById = async (req, res) => {
 export const update = async (req, res) => {
     try {
         const usuarioId = req.usuario.id;
-        const investiment = await investimentService.updateInvestment(usuarioId, req.params.id, req.body);
+        const investiment = await investimentService.updateInvestment(req.params.id, req.body);
 
         res.json(investiment);
     } catch (error) {
-        res.status(500).json({ error: `Erro ao atualizar investimento: ${error.massage}` });
+        res.status(500).json({ error: `Erro ao atualizar investimento: ${error.message}` });
     }
 };
 
 export const deleteInvestment = async (req, res) => {
     try {
         const usuarioId = req.usuario.id;
-        await investimentService.deleteInvestment(usuarioId, req.params.id);
+        await investimentService.deleteInvestment(req.params.id);
 
         res.status(204).end();
     } catch (error) {
