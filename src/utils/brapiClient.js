@@ -5,14 +5,18 @@ export const fetchInvestmentData = async (code) => {
     try {
         const response = await axios.get(`https://brapi.dev/api/quote/${code}`, {
             headers: {
-                Authorization: `Bearer ${process.env.BRAPI_TOKEN}` //token da brapi
+                Authorization: `Bearer ${process.env.BRAPI_TOKEN}`
             }
         });
-
+        
         const result = response.data.results[0];
 
         if (!result) {
             throw new Error("Investimento não encontrado na BRAPI");
+        }
+
+        if (!code) {
+            throw new Error("Código do ativo não fornecido");
         }
 
         return {
