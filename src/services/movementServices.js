@@ -88,7 +88,7 @@ export const searchMovementById = async (id) => {
     });
 };
 
-//update de status da movimentação (Pendente, Concluida ou cancelada). não haverá delete das movimentaçoes
+//ATUALIZA SOMENTE OS STATUS(PENDENTE, CONCLUIDA E CANCELADA).
 export const updateMovementById = async (id, NewStatus) => {
     const movimentacao = await prisma.movimentacao.findUnique({
         where: { id: Number(id) }
@@ -103,3 +103,4 @@ export const updateMovementById = async (id, NewStatus) => {
         data:{status: NewStatus}
     });
 };
+//não haverá delete das movimentaçoes(imutável)

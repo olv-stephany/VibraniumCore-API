@@ -118,8 +118,8 @@ export const updateOrRemoveActive = async (usuarioId, code, quantidadeVendida) =
 
 
 
-//lista da carteira
-export const listNewWallet = async (usuario_id) => {
+//lista da carteira, true se for para buscar dados na brapi
+export const listNewWallet = async (usuario_id, atualizar = false) => {
     const wallet = await prisma.carteira.findMany({
         where: { usuario_id },
         include: {
@@ -129,9 +129,22 @@ export const listNewWallet = async (usuario_id) => {
 
     if (!wallet.length) return [];
 
+    if (!atualizar) {
+        return wallet.map(item => ({
+            code: item.investimento.code,
+            nome: item.investimento.nome,
+            quantidade: item.quantidade_total,
+            precoAtual: item.preco_unitario_momento ?? 0,
+            valorTotalAtual: item.preco_unitario_momento
+                ? item.preco_unitario_momento * item.quantidade_total
+                : 0,
+            rentabilidade: null,
+            ultimaAtualizacao: item.ultima_atualizacao
+        }));
+    }
+
     const codes = wallet.map(item => item.investimento.code);
     const dadosAtuais = await fetchMultipleInvestmentData(codes);
-
 
     // Junta os dados da carteira com os dados da brapi
     const updateWallet = wallet.map(item => {

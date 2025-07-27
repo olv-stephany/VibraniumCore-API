@@ -26,7 +26,7 @@ export const sellActive = async (req, res) => {
             return res.status(400).json({ error: 'Código e quantidade válidos são obrigatórios.' });
         }
 
-        const result = await walletServices.updateOrRemoveActive(usuarioId, code, quantidade);
+        const result = await walletServices.updateOrRemoveActive( usuarioId, code, quantidade);
         return res.status(200).json(result);
     } catch (error) {
         return res.status(500).json({ error: error.message });
@@ -37,9 +37,11 @@ export const sellActive = async (req, res) => {
 export const listNewWallet = async (req, res) => {
     try {
         const usuarioId = req.usuario.id;
-        const wallet = await walletServices.listNewWallet(usuarioId);
-        return res.status(200).json(wallet);
+        const atualizar = req.query.atualizar === "true";
 
+        const wallet = await walletServices.listNewWallet(usuarioId, atualizar);
+
+        return res.status(200).json(wallet);
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }

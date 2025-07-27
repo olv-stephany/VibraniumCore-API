@@ -5,7 +5,7 @@ export const create = async (req, res) => {
         const usuarioId = req.usuario.id;
         const { code, ...extras } = req.body;
 
-        const movement = await movementServices.createMovement(usuarioId, code, extras);
+        const movement = await movementServices.createMovement(code, extras);
 
         return res.status(201).json(movement);
     } catch (error) {
@@ -16,7 +16,7 @@ export const create = async (req, res) => {
 export const list = async (req, res) => {
     try {
         const usuarioId = req.usuario.id;
-        const movement = await movementServices.listMovements(usuarioId);
+        const movement = await movementServices.listMovements();
 
         res.json(movement);
     } catch (error) {
@@ -27,7 +27,7 @@ export const list = async (req, res) => {
 export const searchById = async (req, res) => {
     try {
         const usuarioId = req.usuario.id;
-        const movement = await movementServices.searchMovementById(usuarioId, req.params.id);
+        const movement = await movementServices.searchMovementById( req.params.id);
 
         if (!movement) {
             return res.status(404).json({ error: `Movimentação não encontrado` });
@@ -42,7 +42,7 @@ export const searchById = async (req, res) => {
 export const update = async (req, res) => {
     try {
         const usuarioId = req.usuario.id;
-        const movement = await movementServices.updateMovementById(usuarioId, req.params.id, req.body.status);
+        const movement = await movementServices.updateMovementById( req.params.id, req.body.status);
 
         res.json(movement);
     } catch (error) {
