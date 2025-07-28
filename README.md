@@ -119,6 +119,13 @@ node src/server.js
 </div>
 
 <div>
+	<p>All routes require authentication so it will be necessary to place your token in the request header whether in Postman or Insomnia. this image is an example of Insomnia:</p>
+ <img width="433" height="350" alt="image" align-items="center" src="https://github.com/user-attachments/assets/5b6ddbc9-9f60-4adf-867f-a580a08b1573" />
+
+	
+</div>
+
+<div>
   
 **💳 Investments**
 
@@ -314,6 +321,55 @@ node src/server.js
 | POST | <kbd> /wallet/add</kbd>  | Add a stock to wallet
 | POST | <kbd>/wallet/sell</kbd>     | Sell a stock and update wallet
 
+<div>
+<h3 id="post-auth-detail">POST /wallet/add</h3>
+
+**REQUEST**
+```json
+ {
+	"code": "VALE3.SA",
+  "quantidade": 10
+}
+
+```
+
+**RESPONSE**
+```json
+{
+"id": 2,
+	"usuario_id": 11,
+	"investimento_id": 2,
+	"quantidade_total": 10,
+	"valor_total": "557",
+	"ultima_atualizacao": "2025-07-27T19:01:12.111Z"
+}
+```
+</div>
+
+<div>
+<h3 id="post-auth-detail">POST /wallet/sell</h3>
+
+**REQUEST**
+```json
+ {
+	"code": "VALE3.SA",
+  "quantidade": 5
+}
+
+```
+
+**RESPONSE**
+```json
+{
+"id": 2,
+	"usuario_id": 11,
+	"investimento_id": 2,
+	"quantidade_total": 5,
+	"valor_total": "278.5",
+	"ultima_atualizacao": "2025-07-27T19:04:57.991Z"
+}
+```
+</div>
 </div>
 
 <div>
