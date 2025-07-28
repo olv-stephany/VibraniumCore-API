@@ -233,6 +233,74 @@ node src/server.js
 | POST | <kbd> /movements</kbd>  | Record a buy/sell transaction
 | PUT | <kbd> /movements </kbd>     | Update a transaction's status
 
+<div>
+<h3 id="post-auth-detail">POST /movements/</h3>
+
+**REQUEST**
+```json
+{
+  "code": "VALE3",
+	"usuarioId": 11,
+	"tipoTransacao": "COMPRA",
+	"quantidade": 5,
+	"status": "CONCLUIDA"
+}
+
+```
+
+**RESPONSE**
+```json
+{
+  "id": 5,
+	"usuario_id": 11,
+	"investimento_id": 2,
+	"tipo_transacao": "COMPRA",
+	"quantidade": 5,
+	"valor_unitario_momento": "55.7",
+	"valor_total": "278.5",
+	"data_transacao": "2025-07-27T17:35:57.608Z",
+	"status": "CONCLUIDA",
+	"usuario": {
+		"nome_usuario": "Stephany",
+		"email": "stephany@teste.com"
+	},
+	"investimento": {
+		"nome_investimento": "VALE        ON      NM"
+	}
+}
+```
+</div>
+
+<div>
+<h3 id="post-auth-detail">PUT /movements/:id</h3>
+
+**REQUEST**
+```json
+ {
+	"code": "VALE3",
+	"usuarioId": 11,
+	"tipoTransacao": "VENDA",
+	"quantidade": 20,
+	"status": "PENDENTE"
+}
+
+```
+
+**RESPONSE**
+```json
+{
+"id": 5,
+	"usuario_id": 11,
+	"investimento_id": 2,
+	"tipo_transacao": "COMPRA",
+	"quantidade": 5,
+	"valor_unitario_momento": "55.7",
+	"valor_total": "278.5",
+	"data_transacao": "2025-07-27T17:35:57.608Z",
+	"status": "PENDENTE"
+}
+```
+</div>
 </div>
 
 <div>
