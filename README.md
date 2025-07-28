@@ -1,2 +1,167 @@
+[JAVASCRIPT__BADGE]: https://img.shields.io/badge/Javascript-001F3F?style=for-the-badge&logo=javascript
+[EXPRESS__BADGE]: https://img.shields.io/badge/express-001F3F?style=for-the-badge&logo=express
+[POSTGRES_BADGE]: https://img.shields.io/badge/PostgreSQL-001F3F?style=for-the-badge&logo=postgresql&logoColor=white
+[PRISMA_BADGE]: https://img.shields.io/badge/Prisma-001F3F?style=for-the-badge&logo=prisma&logoColor=white
+[NODE_BADGE]: https://img.shields.io/badge/Node.js-001F3F?style=for-the-badge&logo=node.js&logoColor=white
+[JWT_BADGE]: https://img.shields.io/badge/JWT-001F3F?style=for-the-badge&logo=jsonwebtokens&logoColor=white
+[BRAPI_BADGE]: https://img.shields.io/badge/BRAPI-001F3F?style=for-the-badge&logo=api&logoColor=white
+
+
 # VibraniumCore-API
-api de investimentos em desenvolvimento..... 
+A RESTful API for managing personal investments.
+It enables user registration, portfolio management, buy and sell operations, and real-time price updates through integration with the BRAPI API.
+
+##  **Technologies used**
+
+<div>
+
+![javascript][JAVASCRIPT__BADGE]
+![Node.js][NODE_BADGE]
+![express][EXPRESS__BADGE]
+![JWT][JWT_BADGE]
+![Prisma][PRISMA_BADGE]
+![PostgreSQL][POSTGRES_BADGE]
+![BRAPI][BRAPI_BADGE]
+
+</div>
+
+<h2 id="started">🚀 Getting started</h2>
+
+<div>
+<h3>Prerequisites</h3>
+  
+- NodeJS
+- MongoDB or PostgreSQL (used via Prisma ORM)
+- Git
+- .env environment file
+</div>
+
+<div>
+  <h3>Cloning</h3>
+
+Clone this project in your terminal
+
+```bash
+git clone https://github.com/olv-stephany/VibraniumCore-API.git
+```
+</div>
+
+<div>
+  <h3> Environment Variables</h2>
+  
+Create a `.env` file based on `.env.example` and fill in with:
+
+```yaml
+DATABASE_URL=your-prisma-db-url
+BRAPI_TOKEN=your-brapi-token
+JWT_SECRET=your-secret
+```
+</div>
+
+<div>
+<h3>Starting and Running the Project</h3>
+
+How to start your project
+
+```bash
+cd VibraniumCore-API
+npm install
+node src/server.js
+``````
+</div>
+
+<div>
+<h2 id="routes">📍 API Endpoints</h2>
+
+🔐 Authentication
+​
+| method  | route | description                                         
+|----------------------|-------------------------|----------------------------
+| POST | <kbd> /auth/register</kbd>  | Create a new user
+| POST | <kbd> /auth/login</kbd>     | Login and get token
+
+
+<h3 id="post-auth-detail">POST /auth/register</h3>
+
+**REQUEST**
+```json
+{
+  "nome_usuario": "Stephany",
+  "email": "stephany@teste.com",
+  "senha": "123456"
+}
+```
+
+**RESPONSE**
+```json
+{
+  "message": "Usuário registrado com sucesso!"
+}
+```
+
+<h3 id="post-auth-detail">POST /auth/login</h3>
+
+**REQUEST**
+```json
+{
+  "email": "stephany@teste.com",
+  "senha": "123456"
+}
+```
+
+**RESPONSE**
+```json
+{
+  "token": "your-token-here"
+}
+```
+</div>
+
+<div>
+  
+**💳 Investments**
+
+
+| method  | route | description                                         
+|----------------------|-------------------------|----------------------------
+| POST | <kbd> /investment</kbd>  | Create a new investment (admin)
+| GET | <kbd> /investment</kbd>     | List all investments
+| PUT | <kbd> /investment/:id </kbd>     | Update investment (admin)
+
+</div>
+
+<div>
+  
+**📈 Movements**
+
+
+| method  | route | description                                         
+|----------------------|-------------------------|----------------------------
+| POST | <kbd> /movements</kbd>  | Record a buy/sell transaction
+| PUT | <kbd> /movements </kbd>     | Update a transaction's status
+
+</div>
+
+<div>
+  
+**💵 Wallet**
+
+
+| method  | route | description                                         
+|----------------------|-------------------------|----------------------------
+| GET | <kbd>/wallet</kbd>  | Get the user's wallet
+| POST | <kbd> /wallet/add</kbd>  | Add a stock to wallet
+| POST | <kbd>/wallet/sell</kbd>     | Sell a stock and update wallet
+
+</div>
+
+<div>
+  <h2 id="contribute">📫 Contribute</h2>
+
+This project is open to contributions of all kinds! Whether it's fixing bugs, improving documentation, suggesting ideas, or adding new features, you're welcome to collaborate. Let's build and learn together! 🤝🚀
+
+1. `git clone https://github.com/olv-stephany/VibraniumCore-API.git`
+2. `git checkout -b feature/your-feature`
+3. Follow commit patterns
+4. Open a Pull Request explaining the problem solved or feature made, if exists, append screenshot of visual modifications and wait for the review!
+</div>
