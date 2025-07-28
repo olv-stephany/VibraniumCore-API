@@ -281,7 +281,7 @@ node src/server.js
 	"usuarioId": 11,
 	"tipoTransacao": "VENDA",
 	"quantidade": 20,
-	"status": "PENDENTE"
+	"status": "PENDENTE"  ---> No input, only the status is updated, as we want an immutable and secure movement.
 }
 
 ```
@@ -293,7 +293,7 @@ node src/server.js
 	"usuario_id": 11,
 	"investimento_id": 2,
 	"tipo_transacao": "COMPRA",
-	"quantidade": 5,
+	"quantidade": 5, ---> Did you see? No other data is changed in the PUT after the POST, only the status.
 	"valor_unitario_momento": "55.7",
 	"valor_total": "278.5",
 	"data_transacao": "2025-07-27T17:35:57.608Z",
