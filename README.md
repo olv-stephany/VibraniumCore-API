@@ -66,6 +66,7 @@ How to start your project
 ```bash
 cd VibraniumCore-API
 npm install
+npm run seed
 node src/server.js
 ``````
 </div>
@@ -128,6 +129,98 @@ node src/server.js
 | GET | <kbd> /investment</kbd>     | List all investments
 | PUT | <kbd> /investment/:id </kbd>     | Update investment (admin)
 
+<div>
+<h3 id="post-auth-detail">POST /investment</h3>
+
+**REQUEST**
+```json
+{
+  "code": "BBAS3", ---> check the asset code in brapi API
+  "categoriaId": 5, ---> the categories are divided into 5, check the seed.js
+  "riscoId": 3,  ---> the risks are "BAIXO, MEDIO, and ALTO"
+  "liquidez": "BAIXA",
+  "descricao": "Investimento em ações do Banco do Brasil."
+}
+
+```
+
+**RESPONSE**
+```json
+{
+ "id": 7,
+	"code": "BBAS3",
+	"nome_investimento": "BRASIL      ON      NM",
+	"categoria_investimentos_id": 5,
+	"riscos_investimentos_id": 2,
+	"liquidez": "BAIXA",
+	"valor_unitario": "20.24",
+	"indice_rentabilidade": "0.847",
+	"descricao": "Investimento em ações do Banco do Brasil."
+}
+```
+</div>
+
+<div>
+<h3 id="post-auth-detail">GET /investment/</h3>
+
+
+**RESPONSE**
+```json
+{
+  "id": 7,
+	"code": null,
+	"nome_investimento": "BRASIL      ON      NM",
+	"categoria_investimentos_id": 5,
+	"riscos_investimentos_id": 3,
+	"liquidez": "BAIXA",
+	"valor_unitario": "20.24",
+	"indice_rentabilidade": "0.847",
+	"descricao": "Investimento em ações do Banco do Brasil.",
+	"categoria": {
+		"id": 5,
+		"nome_categoria": "Ações",
+		"descricao": null
+	},
+	"risco": {
+		"id": 3,
+		"nome_nivel": "ALTO",
+		"descricao": "O investimento de alto risco é aquele que não possui previsibilidade ou até mesmo garantias de rentabilidade. Ou seja, no momento da aplicação, não é possível saber qual será a margem de lucro ou de eventuais perdas.",
+		"recomendacao_geral": "Investidores Agressivos"
+	}
+}
+```
+</div>
+
+<div>
+<h3 id="post-auth-detail">PUT /investment/:id</h3>
+
+**REQUEST**
+```json
+{
+  "code": "BBAS3", ---> check the asset code in brapi API
+  "categoriaId": 5, ---> the categories are divided into 5, check the seed.js
+  "riscoId": 3,  ---> the risks are "BAIXO, MEDIO, and ALTO"
+  "liquidez": "BAIXA",
+  "descricao": "Investimento em ações do Banco do Brasil."
+}
+
+```
+
+**RESPONSE**
+```json
+{
+  "id": 7,
+	"code": "BBAS3",
+	"nome_investimento": "BRASIL      ON      NM",
+	"categoria_investimentos_id": 5,
+	"riscos_investimentos_id": 2,
+	"liquidez": "BAIXA",
+	"valor_unitario": "20.24",
+	"indice_rentabilidade": "0.847",
+	"descricao": "Investimento em ações do Banco do Brasil."
+}
+```
+</div>
 </div>
 
 <div>
